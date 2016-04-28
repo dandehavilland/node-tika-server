@@ -1,0 +1,22 @@
+{
+  "name": "node-tika-server",
+  "version": "0.0.1",
+  "description": "Node wrapper for booting and interacting with Apache Tika in server mode.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dandehavilland/node-tika-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dandehavilland/node-tika-server/issues"
+  },
+  "homepage": "https://github.com/dandehavilland/node-tika-server#readme",
+  "dependencies": {
+    "rsvp": "^3.2.1"
+  }
+}
