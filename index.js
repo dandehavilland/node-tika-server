@@ -19,6 +19,11 @@ function bootServer(callback) {
   }
 }
 
+function killServer(callback) {
+  console.log('killing tika server');
+  _tika.kill();
+}
+
 function connect(callback) {
   bootServer();
 
@@ -40,7 +45,7 @@ function connect(callback) {
         if (retries === MAX_RETRIES) {
           console.error('Could not connect after '+MAX_RETRIES+' retries.');
         } else {
-          initialize(callback)
+          initialize(callback);
         }
       }, RETRY_WAIT);
     });
@@ -48,6 +53,10 @@ function connect(callback) {
 
   initialize();
 }
+
+module.exports.killServer = function(callback) {
+  _tika.kill();
+};
 
 module.exports.getText = function (filePath) {
   return new RSVP.Promise((resolve, reject) => {
