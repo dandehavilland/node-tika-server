@@ -7,7 +7,7 @@ const net = require('net');
 const SERVER_PORT = 9293;
 const SERVER_HOST = 'localhost';
 const MAX_RETRIES = 5;
-const RETRY_WAIT = 1000;
+const RETRY_WAIT = 2000;
 const TIKA_BINARY = __dirname+ '/bin/tika-app-1.12.jar';
 
 let openSockets = [];
