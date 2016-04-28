@@ -10,17 +10,21 @@ const MAX_RETRIES = 5;
 const RETRY_WAIT = 1000;
 const TIKA_BINARY = __dirname+ '/bin/tika-app-1.12.jar';
 
+let openSockets = [];
 let _tika;
 function bootServer(callback) {
   if (!_tika) {
     _tika = exec('java -Djava.awt.headless=true -jar '+ TIKA_BINARY + ' --server --port '+SERVER_PORT+ ' -t', (error, result) => {
-      console.log('result', error, result);
+      console.log('Tika server terminated');
     });
   }
 }
 
 function killServer(callback) {
   console.log('killing tika server');
+  openSockets.forEach((socket) => {
+    socket.destroy();
+  });
   _tika.kill();
 }
 
@@ -30,14 +34,16 @@ function connect(callback) {
   let retryTimeout = 1000;
   let retries = 0;
   let connected = false;
-  let socket;
 
   function initialize() {
-    socket = new net.connect(SERVER_PORT, SERVER_HOST, () => {
+    let socket = new net.connect(SERVER_PORT, SERVER_HOST, () => {
       console.log('connected to server!');
       connected = true;
       callback(socket);
     });
+
+    openSockets.push(socket);
+
     socket.on('error', (error) => {
       console.error('Could not connect, retrying...');
       setTimeout(() => {

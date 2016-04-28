@@ -1,7 +1,8 @@
 'use strict';
-const getText = require('../index').getText;
+const tika = require('../index');
 
-getText(__dirname + '/test.txt')
+tika.getText(__dirname + '/test.txt')
   .then((output) => {
     console.log(output);
+    tika.killServer();
   });
